@@ -104,4 +104,8 @@ The measured output of the system is taken as:
 
 y = y<sub>m</sub> 
 
+The sensor output can be written as:
+
+y = K<sub>m</sub> x
+
 
