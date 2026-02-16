@@ -1,0 +1,256 @@
+\documentclass[10pt,twocolumn]{article}
+
+\usepackage[a4paper,margin=0.95in]{geometry}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+\title{
+Control System Design for an Electromechanical Ball System\\
+\large Group $\beta$}
+\author{Ciaran Coghlan - 40442012 \and Dara McCollam - XXXXXXXX \and Joseph XXXX - XXXXXXXX}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This report presents the modelling, linearisation, and controller design 
+for a nonlinear electromechanical system consisting of a wooden ball on 
+an inclined plane actuated by an electromagnet. The objective is to 
+design a controller capable of stabilising the system near 
+$x_{sp} = 0.4\,\text{m}$ while ensuring BIBO stability, zero steady-state 
+error, and disturbance rejection.
+\end{abstract}
+
+\section{Introduction}
+
+Briefly describe:
+\begin{itemize}
+    \item Physical system
+    \item Control objectives
+    \item Report structure
+\end{itemize}
+
+\section{System Description}
+
+\subsection{Physical System Overview}
+
+Include a figure of the system and describe:
+\begin{itemize}
+    \item Ball dynamics
+    \item Spring and damper
+    \item Electromagnet
+    \item Sensor model
+\end{itemize}
+
+\subsection{Parameters}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ll}
+\toprule
+Parameter & Value \\
+\midrule
+$m$ & 462 g \\
+$g$ & 9.81 m/s$^2$ \\
+$d$ & 42 cm \\
+$\sigma$ & 65 cm \\
+$r$ & 12.3 cm \\
+$R$ & 2.2 k$\Omega$\\
+$L_0$ & 125 mH \\
+$L_1$ & 24.1 mH \\
+$\alpha$ & $1.2\,\mathrm{m}^{-1}$ \\
+$c$ & $6.811\frac{\mathrm{m}^3\,\mathrm{g}}{\mathrm{A}^2\,\mathrm{s}^2}$ \\
+$k$ & 1885 N/m\\
+$b$ & 10.4 Ns/m\\
+$\Phi$ & $41^{\circ}$\\
+$\tau_m$ & 30 ms\\
+\bottomrule
+\end{tabular}
+\caption{System parameters}
+\end{table}
+
+\section{Nonlinear System Modelling}
+
+\subsection{Mechanical Dynamics}
+
+Derive Newton’s second law along the incline:
+
+\begin{equation}
+m\ddot{x} = \text{(forces along incline)}
+\end{equation}
+
+Include:
+\begin{itemize}
+    \item Gravity component
+    \item Spring force
+    \item Damping force
+    \item Magnetic force
+\end{itemize}
+
+\subsection{Electrical Dynamics}
+
+From circuit analysis:
+
+\begin{equation}
+V = Ri + \frac{d}{dt}(L(x)i)
+\end{equation}
+
+Include inductance expression and magnetic force equation.
+
+\subsection{Sensor Model}
+
+First-order sensor model:
+
+\begin{equation}
+\tau_m \dot{y} + y = x
+\end{equation}
+
+\subsection{State-Space Representation}
+
+Define state vector:
+
+\begin{equation}
+\mathbf{x} =
+\begin{bmatrix}
+x \\
+\dot{x} \\
+i \\
+y
+\end{bmatrix}
+\end{equation}
+
+Define input:
+
+\[
+u = V
+\]
+
+Write nonlinear system:
+
+\begin{equation}
+\dot{\mathbf{x}} = f(\mathbf{x},u)
+\end{equation}
+
+\begin{equation}
+y = g(\mathbf{x},u)
+\end{equation}
+
+\section{Linearisation Around Operating Point}
+
+Linearise about:
+
+\[
+x = x_{sp} = 0.4\,\text{m}
+\]
+
+Present Jacobian matrices:
+
+\begin{equation}
+\dot{\mathbf{x}} = A\mathbf{x} + B u
+\end{equation}
+
+\begin{equation}
+y = C\mathbf{x} + D u
+\end{equation}
+
+\section{Controller Design}
+
+\subsection{Control Objectives}
+
+State explicitly:
+\begin{itemize}
+    \item BIBO stability
+    \item Zero steady-state error
+    \item Disturbance rejection
+    \item Limited oscillation
+\end{itemize}
+
+\subsection{Controller Selection}
+
+Explain chosen controller (e.g., PID or state feedback).
+
+\subsection{Closed-Loop Stability Analysis}
+
+\begin{itemize}
+    \item Pole locations
+    \item Stability margins
+\end{itemize}
+
+\section{Simulation Results}
+
+\subsection{Open-Loop Behaviour}
+
+Include plots.
+
+\subsection{Closed-Loop Performance}
+
+Include:
+\begin{itemize}
+    \item Step response
+    \item Disturbance rejection
+    \item Comparison linear vs nonlinear model
+\end{itemize}
+
+\section{Discussion}
+
+Discuss:
+\begin{itemize}
+    \item Model assumptions
+    \item Practical implementation concerns
+    \item Robustness
+\end{itemize}
+
+\section{Conclusion}
+
+Summarise findings and performance.
+
+\section*{Code Repository}
+
+The simulation code is available at:
+
+\url{https://github.com/ccogh/ELE2038-Signals-and-Control-Group-Coursework---Group-}
+
+\appendix
+
+\section{Collaboration Report}
+
+\subsection{Meeting Log}
+
+\begin{table}[h]
+\small
+\centering
+\begin{tabularx}{\columnwidth}{l l X X}
+\toprule
+Date & Attendees & Progress Review & Conclusions / Actions \\
+\midrule
+28 Jan & CC, DMcC, J & 
+Kick-off meeting. Discussed assignment objectives, relevant classwork and notes, decided on collaboration system. &
+A1.1 CC to set up Github. 
+A1.2 DMcC to outline relevant sections in notes. 
+A1.3 J to begin analysing assignment brief and provided system parameters. \\
+
+5 Feb & CC, DMcC, J & 
+Github repository and MS Teams group created to streamline collaboration. &
+A2.1 CC to create report structure and create a Python scaffold for simulating system. 
+A2.2 DMcC to produce mechanical nonlinear equation in a code ready form and Python deliverable.
+A2.3 J to derive circuit dynamics and measurement equation and Python deliverable.\\
+
+\bottomrule
+\end{tabularx}
+\caption{Summary of meeting minutes}
+\end{table}
+
+\subsection{Task Distribution}
+
+Describe each member’s contribution.
+
+\subsection{Collaboration Tools}
+
+Describe Git usage, branching strategy, etc.
+
+\end{document}
