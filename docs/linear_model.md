@@ -35,4 +35,9 @@ The kinematic relationship between position and velocity:
 dx/dt = v 
 
 The mechanical dynamics of the system ar3e given by: 
-dv/dt = (
+dv/dt = (5/(7m)) [ m g sin(φ) - k(x - d) - b v + (c i²) / (δ - x)² ]
+
+The electrical dynamics of the electromagnet are given by:
+di/dt = (V - Ri) / L(x)
+
+The inductance depends on position:
