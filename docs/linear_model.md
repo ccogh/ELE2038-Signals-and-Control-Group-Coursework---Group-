@@ -40,4 +40,17 @@ dv/dt = (5/(7m)) [ m g sin(φ) - k(x - d) - b v + (c i²) / (δ - x)² ]
 The electrical dynamics of the electromagnet are given by:
 di/dt = (V - Ri) / L(x)
 
+
+
 The inductance depends on position:
+L(x) = L<sub>0</sub> + L<sub>1</sub> e<sup>-α(δ - x)</sup>
+
+The output of the system is the distance between the ball and electromagnet: 
+y =  δ - x 
+
+## State Variables
+
+The system is represented using the following state variables: 
+x1 = x (position) 
+x2 = v (velocity) 
+x3 = i (
