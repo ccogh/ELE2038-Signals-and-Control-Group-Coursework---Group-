@@ -53,4 +53,13 @@ y =  δ - x
 The system is represented using the following state variables: 
 x1 = x (position) 
 x2 = v (velocity) 
-x3 = i (
+x3 = i (current)
+
+The system can be written in state space form as:
+
+- dx1/dt =x2
+- dx2/dt = (5/(7m)) [ m g sin(φ) - k(x1 - d) - b x2 + (c x3²) / (δ - x1)² ]
+-  dx3/dt = (V -R x3) / l(x1)
+
+
+y = δ - x1
