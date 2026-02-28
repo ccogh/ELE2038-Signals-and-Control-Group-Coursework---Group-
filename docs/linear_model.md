@@ -59,7 +59,7 @@ The system can be written in state space form as:
 
 - dx1/dt =x2
 - dx2/dt = (5/(7m)) [ m g sin(φ) - k(x1 - d) - b x2 + (c x3²) / (δ - x1)² ]
--  dx3/dt = (V -R x3) / l(x1)
+-  dx3/dt = (V -R x3) / L(x1)
 
 
 y = δ - x1
@@ -89,24 +89,24 @@ D =
 
 Matrix A describes the internal dynamics of the system. It defines how teh state variables, like position and velocity influence each other over time. The terms in A represent the effects of stiffness and damping. 
 
-Matrix B describes how the input affects the system. In this case, the input voltage inluences the acceleration of the ball through the electromagnetic force.
+Matrix B describes how the input affects the system. In this case, the input voltage influences the acceleration of the ball through the electromagnetic force.
 
-Matrix C defines how the input is related to teh state variables. Here, the output is the position of the ball. 
+Matrix C defines how the output is related to the state variables. Here, the output is the position of the ball. 
 
-Matrix D represents any direct effect of teh input on the output. Since D = 0, there is no direct feedthrough from the input to the output. 
+Matrix D represents any direct effect of the input on the output. Since D = 0, there is no direct feedthrough from the input to the output. 
 
 ## Transfer Function
 The transfer function is obtained from the state-space model using:
 G(s) = C(sI - A)<sup>-1</sup>B + D
 
 After using Python, I found the transfer function to be : 
-G(s) = 4.62 / (s<sup>2</sup> + 16.08 +2691.2)
+G(s) = 4.62 / (s<sup>2</sup> + 16.08s +2691.2)
 
 ## Poles 
-The poles of the system are given by the eignvalues of matrix A:
+The poles of the system are given by the eigenvalues of matrix A:
 
 p1 = -8.04 + 51.25j 
 
 p2 = -8.04 - 51.25j 
 
-Since the poles of the system have negative real parts, this indicates that the system is stable. The presence of imaginary components shows that the system exhibits oscillatory behaiour. 
+Since the poles of the system have negative real parts, this indicates that the system is stable. The presence of imaginary components shows that the system exhibits oscillatory behaviour. 
