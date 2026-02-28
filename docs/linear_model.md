@@ -2,8 +2,8 @@
 
 The system consists of a ball rolling along an inclined surface under the influence of gravity, spring force, damping, and magnetic force from an electro magnet.
 
-The input to the system is the voltage applied to the electromagnet coil:
-u(t0 = V(t)
+The input to the system is the current in the electromagnet:
+u(t) = i(t)
 
 The output of the system is the distance between the centre of the ball and the centre of the electromagnet:
 y(t) = δ - x(t)
