@@ -63,3 +63,34 @@ The system can be written in state space form as:
 
 
 y = δ - x1
+
+## Linearised Model
+
+The non linear system is linearised about an operating point using a small signal approximation. 
+The system is expressed in state form such as:
+dx/dt = A x + B u 
+y = C x + D u
+
+Where the matrices are A, B, C, D are given by:
+
+A = 
+[ 0       1
+-2691.2       -16.08 ]
+
+B = 
+[ 0
+4.62 ]
+
+C =
+[ 1  0 ]
+
+D =
+[ 0 ]
+
+Matrix A describes the internal dynamics of the system. It defines how teh state variables, like position and velocity influence each other over time. The terms in A represent the effects of stiffness and damping. 
+
+Matrix B describes how the input affects the system. In this case, the input voltage inluences the acceleration of the ball through the electromagnetic force.
+
+Matrix C defines how the input is related to teh state variables. Here, the output is the position of the ball. 
+
+Matrix D represents any direct effect of teh input on the output. Since D = 0, there is no direct feedthrough from the input to the output. 
