@@ -94,3 +94,19 @@ Matrix B describes how the input affects the system. In this case, the input vol
 Matrix C defines how the input is related to teh state variables. Here, the output is the position of the ball. 
 
 Matrix D represents any direct effect of teh input on the output. Since D = 0, there is no direct feedthrough from the input to the output. 
+
+## Transfer Function
+The transfer function is obtained from the state-space model using:
+G(s) = C(sI - A)<sup>-1</sup>B + D
+
+After using Python, I found the transfer function to be : 
+G(s) = 4.62 / (s<sup>2</sup> + 16.08 +2691.2)
+
+## Poles 
+The poles of the system are given by the eignvalues of matrix A:
+
+p1 = -8.04 + 51.25j 
+
+p2 = -8.04 - 51.25j 
+
+Since the poles of the system have negative real parts, this indicates that the system is stable. The presence of imaginary components shows that the system exhibits oscillatory behaiour. 
