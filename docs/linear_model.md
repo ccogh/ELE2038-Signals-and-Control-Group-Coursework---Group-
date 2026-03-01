@@ -34,7 +34,7 @@ The system is described by the following nonlinear differential equations.
 The kinematic relationship between position and velocity: 
 dx/dt = v 
 
-The mechanical dynamics of the system ar3e given by: 
+The mechanical dynamics of the system are given by: 
 dv/dt = (5/(7m)) [ m g sin(φ) - k(x - d) - b v + (c i²) / (δ - x)² ]
 
 The electrical dynamics of the electromagnet are given by:
@@ -89,7 +89,7 @@ D =
 
 Matrix A describes the internal dynamics of the system. It defines how teh state variables, like position and velocity influence each other over time. The terms in A represent the effects of stiffness and damping. 
 
-Matrix B describes how the input affects the system. In this case, the input voltage influences the acceleration of the ball through the electromagnetic force.
+Matrix B describes how the input affects the system. 
 
 Matrix C defines how the output is related to the state variables. Here, the output is the position of the ball. 
 
@@ -100,7 +100,7 @@ The transfer function is obtained from the state-space model using:
 G(s) = C(sI - A)<sup>-1</sup>B + D
 
 After using Python, I found the transfer function to be : 
-G(s) = 4.62 / (s<sup>2</sup> + 16.08s +2691.2)
+G(s) = 4.62 / (s<sup>2</sup> + 16.08s + 2691.2)
 
 ## Poles 
 The poles of the system are given by the eigenvalues of matrix A:
