@@ -4,52 +4,35 @@
 
 The operating point is defined such that all state derivatives are zero:
 
-$$
-\dot{x}_1 = 0, \quad \dot{x}_2 = 0, \quad \dot{x}_3 = 0
-$$
+ẋ₁ = 0, ẋ₂ = 0, ẋ₃ = 0  
 
 From the mechanical equation:
 
-$$
-0 =
-\frac{5}{7m}
-\left[
-mg\sin\phi - k(x_0 - d) + \frac{c i_0^2}{(\delta - x_0)^2}
-\right]
-$$
+0 = (5 / 7m) [ m g sin(φ) - k(x₀ - d) + (c i₀²) / (δ - x₀)² ]
 
-Rearranging:
+Since (5 / 7m) ≠ 0, this simplifies to:
 
-$$
-mg\sin\phi - k(x_0 - d) + \frac{c i_0^2}{(\delta - x_0)^2} = 0
-$$
+m g sin(φ) - k(x₀ - d) + (c i₀²) / (δ - x₀)² = 0  
 
 ---
 
 ## 2. Solving for Current
 
-Rearranging for $i_0$:
+Rearranging for i₀:
 
-$$
-i_0^2 =
-\frac{\left[k(x_0 - d) - mg\sin\phi\right](\delta - x_0)^2}{c}
-$$
+i₀² = [ k(x₀ - d) - m g sin(φ) ] (δ - x₀)² / c  
 
 ---
 
 ## 3. Feasibility Condition
 
-For $i_0$ to be real:
+For i₀ to be real:
 
-$$
-k(x_0 - d) - mg\sin\phi \ge 0
-$$
+k(x₀ - d) - m g sin(φ) ≥ 0  
 
 This requires:
 
-$$
-x_0 > d
-$$
+x₀ > d  
 
 ---
 
@@ -57,15 +40,11 @@ $$
 
 To satisfy this condition and remain close to the desired setpoint, the operating point is chosen as:
 
-$$
-x_0 = 0.43 \, \text{m}, \quad v_0 = 0
-$$
+x₀ = 0.43 m, v₀ = 0  
 
 Substituting values gives:
 
-$$
-i_0 \approx 10.62 \, \text{A}
-$$
+i₀ ≈ 10.62 A  
 
 ---
 
@@ -73,6 +52,4 @@ $$
 
 The operating point used for linearisation is:
 
-$$
-(x_0, v_0, i_0)
-$$
+(x₀, v₀, i₀)
