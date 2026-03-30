@@ -8,8 +8,8 @@ This allows the system to be approximated as a linear system for small deviation
 
 The linear system will be expressed in the form:
 
-dx/dt = A x + B u  
-y = C x + D u  
+dx̄/dt = A x̄ + B ū  
+ȳ = C x̄ + D ū  
 
 ---
 
@@ -39,9 +39,9 @@ These are evaluated at the operating point (x₀, i₀).
 
 Using deviation variables and substituting the derivatives into the mechanical equation:
 
-dx₁/dt = x₂  
+dx̄₁/dt = x̄₂  
 
-dx₂/dt = a₁ x̄₁ + a₂ x̄₂ + b x̄₃  
+dx̄₂/dt = a₁ x̄₁ + a₂ x̄₂ + b x̄₃  
 
 where:
 
@@ -55,7 +55,7 @@ b = (5 / 7m)[ (2c i₀ / (δ - x₀)²) ]
 
 ## 5. State-Space Representation
 
-The linearised system can be written in matrix form:
+The linearised system in deviation form can be written as:
 
 A =  
 [ 0   1  
