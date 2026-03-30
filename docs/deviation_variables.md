@@ -7,8 +7,7 @@ Let the operating point be defined by:
 - x₁ = x₀  
 - x₂ = v₀  
 - x₃ = i₀  
-- u = u₀
-- ȳ = y - y₀
+- u = u₀  
 
 Define the deviation variables:
 
@@ -16,7 +15,8 @@ Define the deviation variables:
 - x̄₂ = x₂ - v₀  
 - x̄₃ = x₃ - i₀  
 - ū = u - u₀  
-
+- ȳ = y - y₀  
+ 
 Since v₀ = 0:
 
 - x̄₂ = x₂  
