@@ -1,3 +1,20 @@
+# ⚠️ Legacy File (Do Not Use)
+
+This file was an earlier combined draft of the modelling and linearisation.
+
+It is no longer used.
+
+The updated, structured modelling workflow is now split across:
+
+- nonlinear_model.md
+- operating_point.md
+- deviation_variables.md
+- linearisation.md
+- transfer_function.md
+
+This file is kept only for reference.
+
+
 ## System Definition
 
 The system consists of a ball rolling along an inclined surface under the influence of gravity, spring force, damping, and magnetic force from an electromagnet.
