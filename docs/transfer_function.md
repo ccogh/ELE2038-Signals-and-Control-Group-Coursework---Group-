@@ -43,7 +43,7 @@ D =
 
 Substituting the matrices into the transfer function expression gives:
 
-G(s) = X(s) / I(s)
+G(s) = X̄₁(s) / Ī(s)
 
 G(s) = 4.62 / (s^2 + 16.08s + 2691.2)
 
