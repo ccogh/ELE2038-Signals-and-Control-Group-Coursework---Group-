@@ -15,284 +15,120 @@ The system is nonlinear because:
 ## 2. Variables and Parameters
 
 ### State variables
-- $x_1 = x$ : position of the ball along the incline (m)
-- $x_2 = v = \dot{x}$ : velocity of the ball along the incline (m/s)
-- $x_3 = i$ : current in the electromagnet (A)
-- $x_4 = y_m$ : measured position from the sensor (m)
+- x₁ = x : position (m)  
+- x₂ = v = dx/dt : velocity (m/s)  
+- x₃ = i : current (A)  
+- x₄ = yₘ : measured position (m)  
 
 ### Input
-- $u = V$ : applied voltage to the electrical circuit (V)
+- u = V : applied voltage (V)
 
 ### Output
-- $y = x_4$ : measured ball position (m)
-
-### Parameters
-- $m$ : mass of the ball (kg)
-- $g$ : gravitational acceleration ($\text{m/s}^2$)
-- $\phi$ : incline angle (rad)
-- $k$ : spring stiffness (N/m)
-- $b$ : viscous damping coefficient (N·s/m)
-- $d$ : position at which the spring is at its natural length (m)
-- $c$ : magnetic force constant
-- $\delta$ : position of the electromagnet centre along the incline (m)
-- $R$ : circuit resistance ($\Omega$)
-- $L_0, L_1, \alpha$ : inductance parameters
-- $\tau_m$ : sensor time constant (s)
+- y = x₄
 
 ---
 
 ## 3. Modelling Assumptions
 
-The following assumptions are used:
-
-1. The ball rolls without slipping.
-2. The ball is modelled as a solid sphere, so:
-   $$
-   I = \frac{2}{5}mr^2
-   $$
-3. The spring and damper act along the incline.
-4. The magnetic force acts along the incline toward the electromagnet at $x=\delta$.
-5. Air resistance and additional rolling resistance are neglected.
-6. The sensor is modelled as a first-order system.
-7. To simplify the electrical model, the term $i \, \frac{dL}{dt}$ is neglected. This assumes that the inductance changes slowly compared with the current dynamics.
+1. The ball rolls without slipping  
+2. The ball is a solid sphere (I = 2/5 m r²)  
+3. Spring and damper act along the incline  
+4. Magnetic force acts toward x = δ  
+5. Air resistance neglected  
+6. Sensor is first-order  
+7. Term i(dL/dt) is neglected (slow inductance variation)
 
 ---
 
 ## 4. Nonlinear Mechanical Model
 
-### 4.1 Coordinate convention
+### Forces along incline
 
-The coordinate $x$ is measured along the incline, with positive direction taken downhill.
+- Gravity: Fg = m g sin(φ)  
+- Spring: Fs = -k(x - d)  
+- Damping: Fd = -b v  
+- Magnetic: Fmag = c i² / (δ - x)²  
 
-### 4.2 Forces along the incline
+---
 
-The forces acting on the ball along the incline are:
+### Final nonlinear equation
 
-- gravitational component:
-  $$
-  F_g = mg\sin\phi
-  $$
+d²x/dt² = (5 / 7m) [ m g sin(φ) - k(x - d) - b v + c i² / (δ - x)² ]
 
-- spring force:
-  $$
-  F_s = -k(x-d)
-  $$
+---
 
-- viscous damping force:
-  $$
-  F_d = -b\dot{x}
-  $$
+### State-space form
 
-- magnetic force:
-  $$
-  F_{\text{mag}} = \frac{c i^2}{(\delta-x)^2}
-  $$
+dx₁/dt = x₂  
 
-Let $T$ denote the static friction force at the contact point.
-
-### 4.3 Translational and rotational dynamics
-
-Applying Newton’s second law along the incline:
-$$
-m\ddot{x} = mg\sin\phi - k(x-d) - b\dot{x} + \frac{c i^2}{(\delta-x)^2} - T
-$$
-
-Applying rotational dynamics about the centre:
-$$
-I\ddot{\theta} = -Tr
-$$
-
-Using the rolling without slipping constraint:
-$$
-\ddot{x} = -r\ddot{\theta}
-$$
-
-This gives:
-$$
-T = \frac{I}{r^2}\ddot{x}
-$$
-
-Substituting into the translational equation:
-$$
-\left(m+\frac{I}{r^2}\right)\ddot{x}
-=
-mg\sin\phi - k(x-d) - b\dot{x} + \frac{c i^2}{(\delta-x)^2}
-$$
-
-For a solid sphere:
-$$
-I=\frac{2}{5}mr^2
-\quad\Rightarrow\quad
-m+\frac{I}{r^2}=m+\frac{2}{5}m=\frac{7}{5}m
-$$
-
-Hence the nonlinear mechanical equation becomes:
-$$
-\ddot{x}
-=
-\frac{5}{7m}
-\left[
-mg\sin\phi - k(x-d) - b\dot{x} + \frac{c i^2}{(\delta-x)^2}
-\right]
-$$
-
-### 4.4 Mechanical state equations
-
-Using:
-$$
-x_1=x,\qquad x_2=\dot{x}
-$$
-
-the mechanical subsystem can be written as:
-$$
-\dot{x}_1 = x_2
-$$
-
-$$
-\dot{x}_2 =
-\frac{5}{7m}
-\left[
-mg\sin\phi - k(x_1-d) - b x_2 + \frac{c x_3^2}{(\delta-x_1)^2}
-\right]
-$$
+dx₂/dt = (5 / 7m) [ m g sin(φ) - k(x₁ - d) - b x₂ + c x₃² / (δ - x₁)² ]
 
 ---
 
 ## 5. Nonlinear Electrical Model
 
-The inductance of the electromagnet depends on the ball position and is given by:
-$$
-L(x)=L_0 + L_1 e^{-\alpha(\delta-x)}
-$$
+Inductance:
 
-Using the state variable $x_1$:
-$$
-L(x_1)=L_0 + L_1 e^{-\alpha(\delta-x_1)}
-$$
+L(x) = L₀ + L₁ e^{-α(δ - x)}
 
-Applying Kirchhoff’s Voltage Law:
-$$
-V = Ri + \frac{d}{dt}(L(x)i)
-$$
+KVL:
 
-Since the inductance depends on position:
-$$
-\frac{d}{dt}(L i)=L(x)\frac{di}{dt}+i\frac{dL}{dt}
-$$
+V = R i + d/dt (L(x)i)
 
-So:
-$$
-V = Ri + L(x)\frac{di}{dt}+i\frac{dL}{dt}
-$$
+Using assumption:
 
-Using Assumption 7, the term $i\frac{dL}{dt}$ is neglected, giving:
-$$
-V \approx Ri + L(x)\frac{di}{dt}
-$$
+di/dt = (V - R i) / L(x)
 
-Rearranging:
-$$
-\frac{di}{dt} = \frac{V-Ri}{L(x)}
-$$
+State form:
 
-Using the state variable $x_3=i$:
-$$
-\dot{x}_3 = \frac{u-Rx_3}{L(x_1)}
-$$
+dx₃/dt = (u - R x₃) / L(x₁)
 
 ---
 
 ## 6. Sensor Model
 
-The position sensor is modelled as a first-order system with time constant $\tau_m$.
+First-order system:
 
-Assuming unit sensor gain, the sensor dynamics are:
-$$
-\tau_m \dot{y}_m + y_m = x
-$$
+τₘ dyₘ/dt + yₘ = x
 
-Using the state variable $x_4=y_m$ and $x_1=x$:
-$$
-\tau_m \dot{x}_4 + x_4 = x_1
-$$
+State form:
 
-Hence:
-$$
-\dot{x}_4 = \frac{x_1-x_4}{\tau_m}
-$$
+dx₄/dt = (x₁ - x₄) / τₘ  
 
-The measured output of the system is:
-$$
-y=x_4
-$$
+Output:
+
+y = x₄
 
 ---
 
 ## 7. Final Nonlinear State-Space Model
 
-Define the state vector:
-$$
-\mathbf{x}=
-\begin{bmatrix}
-x_1\\
-x_2\\
-x_3\\
-x_4
-\end{bmatrix}
-=
-\begin{bmatrix}
-x\\
-v\\
-i\\
-y_m
-\end{bmatrix}
-$$
+States:
 
-with input:
-$$
-u=V
-$$
+x = [x₁, x₂, x₃, x₄]
 
-and output:
-$$
-y=x_4
-$$
+Input:
 
-The full nonlinear system is therefore:
-$$
-\dot{x}_1 = x_2
-$$
+u = V
 
-$$
-\dot{x}_2 =
-\frac{5}{7m}
-\left[
-mg\sin\phi - k(x_1-d) - b x_2 + \frac{c x_3^2}{(\delta-x_1)^2}
-\right]
-$$
+System:
 
-$$
-\dot{x}_3 = \frac{u-Rx_3}{L(x_1)}
-$$
+dx₁/dt = x₂  
 
-$$
-\dot{x}_4 = \frac{x_1-x_4}{\tau_m}
-$$
+dx₂/dt = (5 / 7m)[ m g sin(φ) - k(x₁ - d) - b x₂ + c x₃² / (δ - x₁)² ]  
 
-where:
-$$
-L(x_1)=L_0 + L_1 e^{-\alpha(\delta-x_1)}
-$$
+dx₃/dt = (u - R x₃) / L(x₁)  
 
-and the output equation is:
-$$
-y=x_4
-$$
+dx₄/dt = (x₁ - x₄) / τₘ  
+
+Output:
+
+y = x₄
 
 ---
 
-## 8. Note for Later Linearisation
+## 8. Note for Linearisation
 
-For the full nonlinear model, the input is the applied voltage $V$.
+The full system input is voltage V.
 
-In the later linearised mechanical subsystem used for controller-oriented analysis, the current may be treated as an intermediate input to the mechanical dynamics. This distinction will be made explicit in the linearisation section.
+In later analysis, current may be treated as the effective input to the mechanical subsystem.
