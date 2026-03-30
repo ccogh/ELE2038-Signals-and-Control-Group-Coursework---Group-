@@ -38,5 +38,5 @@ elif np.any(np.real(full_poles) > 0):
 else:
     print("\nSystem is marginally stable")
 
-# Optional (not required but useful for later)
+# Optional (useful for later)
 # t, y = ctrl.step_response(G_total)
