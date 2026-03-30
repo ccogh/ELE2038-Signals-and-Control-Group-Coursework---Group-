@@ -20,4 +20,4 @@ Since v₀ = 0:
 
 - x̄₂ = x₂  
 
-These variables represent small deviations about the equilibrium point and will be used to derive the linearised system.
+These variables represent small deviations about the operating point and will be used to derive the linearised system.
