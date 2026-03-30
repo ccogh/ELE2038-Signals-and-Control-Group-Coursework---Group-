@@ -75,7 +75,7 @@ KVL:
 
 V = R i + d/dt (L(x)i)
 
-Using assumption:
+Neglecting the term i(dL/dt), the electrical dynamics are approximated by:
 
 di/dt = (V - R i) / L(x)
 
