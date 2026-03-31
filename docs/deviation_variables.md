@@ -4,20 +4,20 @@ To linearise the nonlinear system, small deviations from the operating point are
 
 Let the operating point be defined by:
 
-- x₁ = x₀  
-- x₂ = v₀  
-- x₃ = i₀  
+- x₁ = x₁,₀  
+- x₂ = x₂,₀  
+- x₃ = x₃,₀  
 - u = u₀  
 
 Define the deviation variables:
 
-- x̄₁ = x₁ - x₀  
-- x̄₂ = x₂ - v₀  
-- x̄₃ = x₃ - i₀  
+- x̄₁ = x₁ - x₁,₀  
+- x̄₂ = x₂ - x₂,₀  
+- x̄₃ = x₃ - x₃,₀  
 - ū = u - u₀  
 - ȳ = y - y₀  
- 
-Since v₀ = 0:
+
+Since x₂,₀ = 0:
 
 - x̄₂ = x₂  
 
