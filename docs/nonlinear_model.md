@@ -15,28 +15,27 @@ The system is nonlinear because:
 ## 2. Variables and Parameters
 
 ### State variables
-- x₁ = x : position (m)  
-- x₂ = v = dx/dt : velocity (m/s)  
-- x₃ = i : current (A)  
-- x₄ = yₘ : measured position (m)  
+- x1 = x : position (m)  
+- x2 = v : velocity (m/s)  
+- x3 = i : current (A)  
 
 ### Input
 - u = V : applied voltage (V)
 
 ### Output
-- y = x₄
+- y = x1 (position)
 
 ---
 
 ## 3. Modelling Assumptions
 
 1. The ball rolls without slipping  
-2. The ball is a solid sphere (I = 2/5 m r²)  
+2. The ball is a solid sphere (I = 2/5 m r^2)  
 3. Spring and damper act along the incline  
 4. Magnetic force acts toward x = δ  
 5. Air resistance neglected  
-6. Sensor is first-order  
-7. Term i(dL/dt) is neglected (slow inductance variation)
+6. Sensor is first-order (modelled separately)  
+7. The term i(dL/dt) is neglected (slow inductance variation)
 
 ---
 
@@ -47,21 +46,21 @@ The system is nonlinear because:
 - Gravity: Fg = m g sin(φ)  
 - Spring: Fs = -k(x - d)  
 - Damping: Fd = -b v  
-- Magnetic: Fmag = c i² / (δ - x)²  
+- Magnetic: Fmag = c x3^2 / (δ - x)^2  
 
 ---
 
 ### Final nonlinear equation
 
-d²x/dt² = (5 / 7m) [ m g sin(φ) - k(x - d) - b v + c i² / (δ - x)² ]
+ẍ = (5 / 7m) [ m g sin(φ) - k(x - d) - b v + c x3^2 / (δ - x)^2 ]
 
 ---
 
 ### State-space form
 
-dx₁/dt = x₂  
+ẋ1 = x2  
 
-dx₂/dt = (5 / 7m) [ m g sin(φ) - k(x₁ - d) - b x₂ + c x₃² / (δ - x₁)² ]
+ẋ2 = (5 / 7m) [ m g sin(φ) - k(x1 - d) - b x2 + c x3^2 / (δ - x1)^2 ]
 
 ---
 
@@ -69,7 +68,7 @@ dx₂/dt = (5 / 7m) [ m g sin(φ) - k(x₁ - d) - b x₂ + c x₃² / (δ - x₁
 
 Inductance:
 
-L(x) = L₀ + L₁ e^{-α(δ - x)}
+L(x1) = L0 + L1 e^(-α(δ - x1))
 
 KVL:
 
@@ -77,35 +76,15 @@ V = R i + d/dt (L(x)i)
 
 Neglecting the term i(dL/dt), the electrical dynamics are approximated by:
 
-di/dt = (V - R i) / L(x)
-
-State form:
-
-dx₃/dt = (u - R x₃) / L(x₁)
+ẋ3 = (u - R x3) / L(x1)
 
 ---
 
-## 6. Sensor Model
-
-First-order system:
-
-τₘ dyₘ/dt + yₘ = x
-
-State form:
-
-dx₄/dt = (x₁ - x₄) / τₘ  
-
-Output:
-
-y = x₄
-
----
-
-## 7. Final Nonlinear State-Space Model
+## 6. Final Nonlinear State-Space Model
 
 States:
 
-x = [x₁, x₂, x₃, x₄]
+x = [x1, x2, x3]^T
 
 Input:
 
@@ -113,17 +92,31 @@ u = V
 
 System:
 
-dx₁/dt = x₂  
+ẋ1 = x2  
 
-dx₂/dt = (5 / 7m)[ m g sin(φ) - k(x₁ - d) - b x₂ + c x₃² / (δ - x₁)² ]  
+ẋ2 = (5 / 7m)[ m g sin(φ) - k(x1 - d) - b x2 + c x3^2 / (δ - x1)^2 ]  
 
-dx₃/dt = (u - R x₃) / L(x₁)  
-
-dx₄/dt = (x₁ - x₄) / τₘ  
+ẋ3 = (u - R x3) / L(x1)  
 
 Output:
 
-y = x₄
+y = x1
+
+---
+
+## 7. Sensor Model (separate block)
+
+The position sensor is modelled as a first-order system:
+
+τm ẏm + y_m = x1  
+
+or:
+
+ẏm = (x1 - y_m) / τm  
+
+The measured output of the system is:
+
+y = y_m
 
 ---
 
@@ -131,4 +124,4 @@ y = x₄
 
 The full system input is voltage V.
 
-In later analysis, current may be treated as the effective input to the mechanical subsystem.
+In the linearisation and control design, the full 3-state system (x1, x2, x3) is used as the plant, and the sensor is treated as a separate block.
