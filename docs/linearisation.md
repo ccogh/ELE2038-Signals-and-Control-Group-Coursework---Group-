@@ -76,6 +76,24 @@ evaluated at (x₁,₀, x₂,₀, x₃,₀, u₀)
 
 ---
 
+## 5.1 Example Coefficient Derivation
+
+As an example, the coefficient a₁ is obtained from the partial derivative of the mechanical equation:
+
+ẋ₂ = (5 / 7m) [ m g sin(φ) - k(x₁ - d) - b x₂ + c x₃² / (δ - x₁)² ]
+
+Taking the derivative with respect to x₁:
+
+∂(ẋ₂)/∂x₁ = (5 / 7m) [ -k + 2c x₃² / (δ - x₁)³ ]
+
+Evaluating at the operating point:
+
+a₁ = (5 / 7m) [ -k + 2c x₃,₀² / (δ - x₁,₀ )³ ]
+
+The remaining coefficients are obtained in the same way by taking the appropriate partial derivatives and evaluating at the operating point.
+
+---
+
 ## 6. State-Space Representation
 
 The linearised system can be written as:
