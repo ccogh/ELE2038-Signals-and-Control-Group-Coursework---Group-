@@ -33,7 +33,7 @@ L(x₁) = L₀ + L₁ e^(-α(δ - x₁))
 
 The system is linearised about the operating point:
 
-(x_{1,0}, x_{2,0}, x_{3,0}, u₀)
+(x₁,₀, x₂,₀, x₃,₀, u₀)
 
 using a first-order Taylor expansion.
 
@@ -72,7 +72,7 @@ b₁ = ∂(ẋ₃)/∂x₁
 b₂ = ∂(ẋ₃)/∂x₃  
 b₃ = ∂(ẋ₃)/∂u  
 
-evaluated at (x_{1,0}, x_{2,0}, x_{3,0}, u₀)
+evaluated at (x₁,₀, x₂,₀, x₃,₀, u₀)
 
 ---
 
@@ -100,7 +100,7 @@ D =
 
 ## 7. Numerical Values
 
-Using the operating point x_{1,0} = 0.50 m, x_{2,0} = 0 and x_{3,0} ≈ 22.1 A, the coefficients are approximately:
+Using the operating point x₁,₀ = 0.50 m, x₂,₀ = 0 and x₃,₀ ≈ 22.1 A, the coefficients are approximately:
 
 a₁ ≈ 133.0  
 a₂ ≈ -16.08  
