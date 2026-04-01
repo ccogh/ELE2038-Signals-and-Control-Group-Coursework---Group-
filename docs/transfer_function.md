@@ -58,7 +58,7 @@ G(s) = X̄₁(s) / Ū(s)
 
 Using the linearised model, this gives approximately:
 
-G(s) = 142.5 / (s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)
+G(s) = 142.5 / (s³ + 15170 s² + 243600 s - 2016000)
 
 This is the transfer function of the linearised plant from voltage deviation to position deviation.
 
@@ -88,7 +88,7 @@ G_total(s) = G(s) × H(s)
 
 So the full measured-output transfer function is:
 
-G_total(s) = 142.5 / [(s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)(0.03s + 1)]
+G_total(s) = 142.5 / [(s³ + 15170 s² + 243600 s - 2016000)(0.03s + 1)]
 
 ---
 
@@ -96,13 +96,13 @@ G_total(s) = 142.5 / [(s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)(0.03s + 1)]
 
 The poles of the plant are the roots of:
 
-s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1 = 0
+s³ + 15170 s² + 243600 s - 2016000 = 0
 
-Using the linearised model, the plant poles are approximately:
+Using Python, the plant poles are approximately:
 
-p₁ ≈ 2.86  
-p₂ ≈ -18.93  
-p₃ ≈ -15158.82  
+p₁ ≈ -15158.82  
+p₂ ≈ -22.10  
+p₃ ≈ 6.02  
 
 The sensor contributes an additional pole:
 
@@ -114,12 +114,12 @@ p₄ = -33.33
 
 The open-loop plant is not BIBO stable, because one pole lies in the right half-plane:
 
-- p₁ ≈ 2.86  
+- p₃ ≈ 6.02  
 
 The other poles are in the left half-plane:
 
-- p₂ ≈ -18.93  
-- p₃ ≈ -15158.82  
+- p₁ ≈ -15158.82  
+- p₂ ≈ -22.10  
 - sensor pole p₄ = -33.33  
 
 Therefore, the full open-loop system is:
@@ -146,14 +146,14 @@ The presence of a right-half-plane pole indicates that the open-loop system is u
 
 ## 10. Summary
 
-The corrected transfer function is now derived from the 3-state voltage-input linearised plant.
+The corrected transfer function is derived from the 3-state voltage-input linearised plant.
 
 The plant transfer function is:
 
-G(s) = 142.5 / (s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)
+G(s) = 142.5 / (s³ + 15170 s² + 243600 s - 2016000)
 
 Including the sensor gives:
 
-G_total(s) = 142.5 / [(s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)(0.03s + 1)]
+G_total(s) = 142.5 / [(s³ + 15170 s² + 243600 s - 2016000)(0.03s + 1)]
 
 The full open-loop system is unstable because of one right-half-plane pole, so controller design is necessary.
