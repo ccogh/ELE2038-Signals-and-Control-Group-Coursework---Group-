@@ -1,111 +1,101 @@
 # Electrical and Sensor Modelling
 
-The aim of this section is to derive the electrical circuit dynamics of the electromagnet and the measurement equation for the sensor. 
+The aim of this section is to derive the electrical circuit dynamics of the electromagnet and the measurement equation for the sensor.
 
+---
 
-## Variables
+## 1. Variables
 
-- \(x(t)\): position of the ball (m)
-- \(y(t)\): distance from the electromagnet (m)
-- \(i(t)\): current in the circuit (A)
-- \(V(t)\): input voltage (V)
-- \(R\): resistance (Ω)
-- \(L\): inductance (H)
-- \(y<sub>m</sub>(t)\): measured position (sensor output)
+- x₁(t): position of the ball (m)  
+- x₃(t): current in the circuit (A)  
+- u(t): input voltage (V)  
+- R: resistance (Ω)  
+- L(x₁): inductance (H)  
+- yₘ(t): measured position (sensor output)  
+- δ: fixed position of the electromagnet (m), used to define the distance between the ball and magnet as (δ - x₁)
 
+---
 
-The distance between the ball and the electromagnet is given by: 
+## 2. Distance Relation
 
-y(t) = δ - x(t)
+The distance between the ball and the electromagnet is:
 
+y(t) = δ - x₁(t)
 
-The electromagentic force depends on the distance \(y\), not directly on the position \(x\).
+The electromagnetic force depends on the distance y, not directly on the position x₁.
 
+---
 
-## Inductance model
+## 3. Inductance Model
 
-The inductance of the electromagnet varies with distance and is given by: 
+The inductance of the electromagnet varies with position and is given by:
 
-L(x) = L<sub>0</sub> + L<sub>1</sub> e<sup>-α(δ - x)</sup>
+L(x₁) = L₀ + L₁ e^(-α(δ - x₁))
 
-This shows that the inductance changes as the ball moves, making the system nonlinear. 
+This shows that the inductance changes as the ball moves, making the system nonlinear.
 
+---
 
-## Electrical Model
+## 4. Electrical Model
 
-Applying Kirchhoff's Voltage Law (KVL) to the circuit:
+Applying Kirchhoff’s Voltage Law (KVL):
 
-V(t) = R i(t) + d/dt (L(x) i(t))
+u(t) = R x₃(t) + d/dt (L(x₁) x₃(t))
 
+Using the product rule:
 
-where \(R i(t)\) is the voltage across the resistor and the inductor voltage is given by \(v<sub>L</sub> = d/dt (Li)\)
-
-Since the inductance depends on position, the product rule must be applied when differentiating: 
-
-d/dt(L i) = L(x) di/dt + i(t) dL/dt
-
-
-Substituting gives: 
-
-V(t) = R i (t) + L(x) di/dt + i(t) dL/dt
-
-
-
-
-To simplify the model, the following assumption is made:
-
-**Assumption A1:** The term i(t) dL/dt\) is neglected to simplify the model and avoid coupling with the mechanical dynamics.
-
-This gives: 
-
-V(t) ≈ Ri(t) + L(x) di/dt
-
-
-
-
-Rearranging:
-
-L(x) di/dt  = V(t) - R i(t)
-
-
-
-di/dt = (V(t) - R i(t)) / L(x)
-
-
-This is the electrical state equation.
-
-
-## Sensor Model 
-
-The sensor is modelled as a first-order system with time constant \(τ<sub>m</sub>\). Let the sensor output be \(y<sub>m</sub>(t)\).
-
-
-τ<sub>m</sub> dy<sub>m</sub>/dt + y<sub>m</sub> = K<sub>m</sub> x(t)
-
-
-
-Rearranging: 
-
-dy<sub>m</sub>/dt = (K<sub>m</sub> x(t) - y<sub>m</sub>(t))/τ<sub>m</sub>
-
-
-The sensor gain is assumed to be 1:
-
-**Assumption A2:** \(K<sub>m</sub> = 1\)
+d/dt (L x₃) = L(x₁) ẋ₃ + x₃(t) L̇
 
 So:
 
-dy<sub>m</sub>/dt = x((t) - y<sub>m</sub>(t)) / τ<sub>m</sub>
+u(t) = R x₃(t) + L(x₁) ẋ₃ + x₃(t) L̇
 
+---
 
-This is the sensor model.
+## 5. Modelling Assumption
 
-The measured output of the system is taken as: 
+**Assumption A1:** The term x₃(t) L̇ is neglected.
 
-y = y<sub>m</sub> 
+This term arises due to the position dependence of the inductance, where:
 
-The sensor output can be written as:
+L̇ = (dL/dx₁) ẋ₁
 
-y = K<sub>m</sub> x
+and therefore introduces coupling between the electrical and mechanical dynamics through the velocity x₂.
 
+Near the operating point, the velocity is small (x₂ ≈ 0), so L̇ is small and the contribution of the term x₃(t) L̇ can be neglected.
 
+This simplifies the electrical model and allows the system to be analysed and linearised more easily. This is an approximation, not an exact step.
+
+---
+
+## 6. Electrical State Equation
+
+With this assumption:
+
+u(t) ≈ R x₃(t) + L(x₁) ẋ₃
+
+Rearranging:
+
+ẋ₃ = (u(t) - R x₃(t)) / L(x₁)
+
+This is the electrical state equation used in the nonlinear model.
+
+---
+
+## 7. Sensor Model
+
+The sensor is modelled as a first-order system with time constant τₘ:
+
+τₘ ẏₘ + yₘ = x₁(t)
+
+Rearranging:
+
+ẏₘ = (x₁(t) - yₘ(t)) / τₘ
+
+---
+
+## 8. Output Definition
+
+The measured output of the system is:
+
+y = yₘ
