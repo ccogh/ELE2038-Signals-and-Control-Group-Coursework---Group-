@@ -4,48 +4,63 @@
 
 The transfer function describes the relationship between the input and output of the linearised system in the Laplace domain.
 
-For the linearised mechanical subsystem:
+For the linearised plant:
 
-- Input: current deviation (ū)  
+- Input: voltage deviation (ū)  
 - Output: position deviation (x̄₁)  
+
+The plant is first derived from the 3-state linearised model. The sensor is then included separately as a first-order block.
 
 ---
 
 ## 2. Transfer Function from State-Space
 
-The transfer function is obtained from the state-space model using:
+The plant transfer function is obtained from the state-space model using:
 
 G(s) = C(sI - A)^(-1)B + D  
+
+For the linearised system:
+
+ẋ̄ = A x̄ + B ū  
+ȳ = C x̄ + D ū  
+
+with output ȳ = x̄₁.
 
 ---
 
 ## 3. State-Space Matrices
 
-From the linearised model:
+From the linearised 3-state model:
 
 A =  
-[ 0       1  
- -2691.2  -16.08 ]
+[ 0        1         0  
+  133.0   -16.08    20.68  
+  0        0     -15158.82 ]
 
 B =  
 [ 0  
-  4.62 ]
+  0  
+  6.89 ]
 
 C =  
-[ 1  0 ]
+[ 1  0  0 ]
 
 D =  
 [ 0 ]
 
 ---
 
-## 4. Mechanical Transfer Function
+## 4. Plant Transfer Function
 
-Substituting the matrices into the transfer function expression gives:
+Substituting the matrices into the state-space transfer function formula gives the plant transfer function:
 
-G(s) = X̄₁(s) / Ī(s)
+G(s) = X̄₁(s) / Ū(s)
 
-G(s) = 4.62 / (s^2 + 16.08s + 2691.2)
+Using the linearised model, this gives approximately:
+
+G(s) = 142.5 / (s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)
+
+This is the transfer function of the linearised plant from voltage deviation to position deviation.
 
 ---
 
@@ -67,72 +82,78 @@ H(s) = 1 / (0.03s + 1)
 
 ## 6. Full System Transfer Function
 
-The sensor is connected in series with the mechanical system, so the overall transfer function is:
+The sensor is connected in series with the plant, so the overall transfer function is:
 
 G_total(s) = G(s) × H(s)
 
-G_total(s) = 4.62 / [(s^2 + 16.08s + 2691.2)(0.03s + 1)]
+So the full measured-output transfer function is:
+
+G_total(s) = 142.5 / [(s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)(0.03s + 1)]
 
 ---
 
 ## 7. Open-Loop Poles
 
-The poles are the roots of the denominator.
+The poles of the plant are the roots of:
 
-### Mechanical poles
+s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1 = 0
 
-s^2 + 16.08s + 2691.2 = 0  
+Using the linearised model, the plant poles are approximately:
 
-p₁ = -8.04 + 51.25j  
-p₂ = -8.04 - 51.25j  
+p₁ ≈ 2.86  
+p₂ ≈ -18.93  
+p₃ ≈ -15158.82  
 
-### Sensor pole
+The sensor contributes an additional pole:
 
-0.03s + 1 = 0  
-
-p₃ = -33.33  
+p₄ = -33.33  
 
 ---
 
 ## 8. Stability Analysis
 
-All poles have negative real parts:
+The open-loop plant is not BIBO stable, because one pole lies in the right half-plane:
 
-- Mechanical poles have negative real components  
-- Sensor pole is negative  
+- p₁ ≈ 2.86  
 
-Therefore, the open-loop system is:
+The other poles are in the left half-plane:
 
-→ BIBO stable  
+- p₂ ≈ -18.93  
+- p₃ ≈ -15158.82  
+- sensor pole p₄ = -33.33  
 
-The complex poles indicate that the system is:
+Therefore, the full open-loop system is:
 
-- underdamped  
-- oscillatory in response  
+→ unstable  
+
+This means feedback control is required to stabilise the system around the operating point.
 
 ---
 
-## 9. Additional Interpretation
+## 9. Interpretation
 
-Comparing the denominator to the standard second-order form:
+The linearised plant is third-order because it contains three states:
 
-s^2 + 2ζωₙs + ωₙ^2  
+- position  
+- velocity  
+- current  
 
-We identify:
+The electrical pole is very fast compared with the mechanical poles, which reflects the much faster current dynamics.
 
-ωₙ = √2691.2 ≈ 51.9 rad/s  
-ζ = 16.08 / (2 × 51.9) ≈ 0.155  
-
-This confirms the system is lightly damped and will exhibit oscillations before settling.
+The presence of a right-half-plane pole indicates that the open-loop system is unstable near the chosen operating point. This is important for controller design.
 
 ---
 
 ## 10. Summary
 
-The system has been converted from state-space form to a transfer function representation.
+The corrected transfer function is now derived from the 3-state voltage-input linearised plant.
 
-The full transfer function, including sensor dynamics, is:
+The plant transfer function is:
 
-G_total(s) = 4.62 / [(s^2 + 16.08s + 2691.2)(0.03s + 1)]
+G(s) = 142.5 / (s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)
 
-The open-loop system is stable and ready for controller design.
+Including the sensor gives:
+
+G_total(s) = 142.5 / [(s^3 + 15174.9 s^2 + 243819.7 s - 2016295.1)(0.03s + 1)]
+
+The full open-loop system is unstable because of one right-half-plane pole, so controller design is necessary.
