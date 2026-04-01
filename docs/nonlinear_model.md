@@ -23,7 +23,7 @@ The system is nonlinear because:
 - u = V : applied voltage (V)
 
 ### Output
-- y = x1 (position)
+- y: measured position (from sensor)
 
 ---
 
@@ -98,9 +98,7 @@ ẋ2 = (5 / 7m)[ m g sin(φ) - k(x1 - d) - b x2 + c x3^2 / (δ - x1)^2 ]
 
 ẋ3 = (u - R x3) / L(x1)  
 
-Output:
-
-y = x1
+The state x1 represents the true position of the ball.
 
 ---
 
@@ -124,4 +122,5 @@ y = y_m
 
 The full system input is voltage V.
 
+In the linearisation and control design, the full 3-state system (x1, x2, x3) is used as the plant, and the sensor is treated as a separate block.
 In the linearisation and control design, the full 3-state system (x1, x2, x3) is used as the plant, and the sensor is treated as a separate block.
