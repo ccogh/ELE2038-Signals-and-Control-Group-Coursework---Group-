@@ -25,31 +25,32 @@ This script combines the mechanical, electrical, and sensor subsystems of the ba
 
 | File | Provides |
 |------|----------|
-| `mechanics.py` | `mech_rhs()` - mechanical acceleration from Newton's second law and rolling constraint |
+| `mechanics.py` | `mech_rhs()` - ODE right-hand side for ball position and velocity |
 | `electrical.py` | `di_dt()` - rate of change of current from Kirchhoff's voltage law |
 | `sensor.py` | `sensor_deriv()` - first-order sensor ODE |
+| `linearise_mechanics.py` | 'compute_i0' - equilibrium current for console output |
 
 ---
 
 ## Assumptions
 
-1.  **Rolling without slipping** - the ball rolls on the incline with no sliding.  This gives an effective mass of (7/5)m, derived from the moment of inertia of a solid sphere I = (2/5)mr².
+1. **Rolling without slipping** - the ball rolls on the incline with no sliding. This gives an effective mass of (7/5)m, derived from the moment of inertia of a solid sphere I = (2/5)mr².
 
-2.  **Solid sphere** - the ball is treated as isotropic with uniform mass distribution, as stated in the coursework brief.
+2. **Solid sphere** - the ball is treated as isotropic with uniform mass distribution, as stated in the coursework brief.
 
-3.  **Assumption A1 - iL term neglected** - the full electrical ODE derived from KVL is:
+3. **Assumption A1 - iL term neglected** - the full electrical ODE derived from KVL is:
 
         V = Ri + L(x)*(di/dt) + i*(dL/dt)
 
-    The term i*(dL/dt) couples the electrical and mechanical dynamics through the ball velocity.Near the operating point the velocity x2 ≈ 0, making dL/dt ≈ 0, so this term is negligible.  Dropping it gives the simplified form used in `electrical.py`:
+    The term i*(dL/dt) couples the electrical and mechanical dynamics through the ball velocity. Near the operating point the velocity x2 ≈ 0, making dL/dt ≈ 0, so this term is negligible. Dropping it gives the simplified form used in `electrical.py`:
 
         di/dt = (V - R*i) / L(x1)
 
-    This is an approximation, valid in the range of the equilibrium point.  See `electrical_sensor_derivation.md` for full justification.
+    This is an approximation, valid in the range of the equilibrium point. See `electrical_sensor_derivation.md` for full justification.
 
-4.  **Sensor gain Km = 1** - A unity gain is assumed, meaning the sensor output equals the true position at steady state.
+4. **Sensor gain Km = 1** - A unity gain is assumed, meaning the sensor output equals the true position at steady state.
 
-5.  **Air resistance neglected** - only the viscous damper modelled in the spring-damper assembly is included.  Additional drag forces are not modelled.
+5. **Air resistance neglected** - only the viscous damper modelled in the spring-damper assembly is included. Additional drag forces are not modelled.
 
 ---
 
@@ -67,9 +68,9 @@ This will print the operating point parameters to the console and display five p
 
 ## Open-Loop Behaviour
 
-This open-loop system is unstable.  The linearised transfer function analysis (see `transfer_function.md`) identifies a right-half-plane pole at approximately +6 rad/s, which causes any small deviation from equilibrium to grow exponentially over time.
+This open-loop system is unstable. The linearised transfer function analysis (see `transfer_function.md`) identifies a right-half-plane pole at approximately +6 rad/s, which causes any small deviation from equilibrium to grow exponentially over time.
 
-This behaviour is expected, and demonstrates why feedback control is necessary.   Without a controller actively adjusting the voltage in response to position error, the system cant maintain the ball at the setpoint.
+This behaviour is expected, and demonstrates why feedback control is necessary.  Without a controller actively adjusting the voltage in response to position error, the system cant maintain the ball at the setpoint.
 
 ---
 
