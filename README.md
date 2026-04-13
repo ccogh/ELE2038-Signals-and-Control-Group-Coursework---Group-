@@ -1,4 +1,4 @@
-# ELE2038 Signals and Control Group Coursework - Group β
+# ELE2038 Signals & Control Group Coursework - Group β
 
 ## How to run Simulator
 
