@@ -11,5 +11,7 @@ In Terminal, run the command:
 
 Then execute:
 `python3 -m full_system` - To run the system simulation with no controller
+
 `python3 -m run_closed_loop` - To simulate the system with completed PID controller design
+
 `python3 -m disturbance_rejection` - To simulate disturbance within the system
