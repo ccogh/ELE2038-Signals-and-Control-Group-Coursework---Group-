@@ -1,14 +1,3 @@
-"""
-Compare nonlinear vs linearised mechanical model (small-signal) around operating point
-
-This python script:
-1) Builds the operating point at x0 = 0.43 m
-2) Computes A, B, C, D for the mechanical linearisation
-3) Simulates a nonlinear model with i(t) = i0 + Δi (step)
-   & linearised model with Δi(t) = Δi (step)
-4) Plots Δx(t) and Δv(t) for comparison
-"""
-
 from __future__ import annotations
 import math
 import numpy as np
