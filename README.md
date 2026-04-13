@@ -1,17 +1,15 @@
 # ELE2038 Signals and Control Group Coursework--- Group β
 
-https://nbviewer.org/ - online .ipynb file viewer
-
 ## How to run Simulator
 
-Download Electrical, Mechanics and Sensor Python files.
-Place in a folder named: "Model" alongside an empty file named: "__init__.py"
-(This allows the folder to be ran as a package.)
+Download 'Code' Directory
 
 Install dependencies (numpy, matplotlib, etc.)
 
 In Terminal, run the command:
-cd /XXX/XXX/XX/ELE2038_control (Where your folder is saved)
+`cd /XXX/XXX/XX/Code/Model (Where your folder is saved)`
 
 Then execute:
-python3 -m ele2038.sim.run_open_loop
+`python3 -m full_system` - To run the system simulation with no controller
+`python3 -m run_closed_loop` - To simulate the system with completed PID controller design
+`python3 -m disturbance_rejection` - To simulate disturbance within the system
